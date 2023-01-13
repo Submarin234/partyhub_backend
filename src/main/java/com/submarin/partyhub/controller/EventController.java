@@ -17,6 +17,23 @@ import java.util.List;
 public class EventController {
     private final EventService eventService;
 
+    @GetMapping("/events/{id}")
+    public ResponseEntity<?> getEventById(@PathVariable Long id) {
+
+        final AppEvent event;
+        try {
+            event = eventService.findById(id);
+        } catch (IOException exception) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+        }
+
+        if (event != null)
+            return ResponseEntity.ok().body(event);
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found!");
+        }
+    }
+
     @GetMapping("/events")
     public ResponseEntity<?> findAll() {
 
