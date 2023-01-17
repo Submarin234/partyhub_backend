@@ -47,4 +47,46 @@ public class EventController {
 
         return ResponseEntity.ok().body(events);
     }
+
+    @GetMapping("/events/sortbyname")
+    public ResponseEntity<?> sortByName() {
+
+        final List<AppEvent> events;
+
+        try {
+            events = eventService.sortByName();
+        } catch (IOException exception) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+        }
+
+        return ResponseEntity.ok().body(events);
+    }
+
+    @GetMapping("/events/sortbydate")
+    public ResponseEntity<?> sortByDate() {
+
+        final List<AppEvent> events;
+
+        try {
+            events = eventService.sortByDate();
+        } catch (IOException exception) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+        }
+
+        return ResponseEntity.ok().body(events);
+    }
+
+    @GetMapping("/events/filterbylocation")
+    public ResponseEntity<?> filterByLocation() {
+
+        final List<AppEvent> events;
+
+        try {
+            events = eventService.filterByLocation();
+        } catch (IOException exception) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+        }
+
+        return ResponseEntity.ok().body(events);
+    }
 }

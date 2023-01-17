@@ -34,4 +34,40 @@ public class EventService {
         return objectMapper.readValue(con.getInputStream(), new TypeReference<List<AppEvent>>() {
         });
     }
+
+    public List<AppEvent> sortByName() throws IOException {
+        final URL url = new URL("http://localhost:8082/event/api/events/sortbyname");
+        final HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        final ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
+        log.info("GOOD: EVENT SERVICE - sort by name");
+        return objectMapper.readValue(con.getInputStream(), new TypeReference<List<AppEvent>>() {
+        });
+    }
+
+    public List<AppEvent> sortByDate() throws IOException {
+        final URL url = new URL("http://localhost:8082/event/api/events/sortbydate");
+        final HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        final ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
+        log.info("GOOD: EVENT SERVICE - sort by date");
+        return objectMapper.readValue(con.getInputStream(), new TypeReference<List<AppEvent>>() {
+        });
+    }
+
+    public List<AppEvent> filterByLocation() throws IOException {
+        final URL url = new URL("http://localhost:8082/event/api/events/filterbylocation");
+        final HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        final ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
+        log.info("GOOD: EVENT SERVICE - filter by location");
+        return objectMapper.readValue(con.getInputStream(), new TypeReference<List<AppEvent>>() {
+        });
+    }
 }
