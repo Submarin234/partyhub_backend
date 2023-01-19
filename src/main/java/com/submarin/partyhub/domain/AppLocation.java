@@ -15,4 +15,6 @@ public class AppLocation {
     private String name;
     private String address;
     private String description;
+    private Double lat;
+    private Double lon;
 }
