@@ -48,7 +48,7 @@ public class EventController {
         return ResponseEntity.ok().body(events);
     }
 
-    @GetMapping("/events/sortbyname")
+    @GetMapping("/events/sort/name")
     public ResponseEntity<?> sortByName() {
 
         final List<AppEvent> events;
@@ -62,7 +62,7 @@ public class EventController {
         return ResponseEntity.ok().body(events);
     }
 
-    @GetMapping("/events/sortbydate")
+    @GetMapping("/events/sort/date")
     public ResponseEntity<?> sortByDate() {
 
         final List<AppEvent> events;
@@ -76,13 +76,13 @@ public class EventController {
         return ResponseEntity.ok().body(events);
     }
 
-    @GetMapping("/events/filterbylocation")
-    public ResponseEntity<?> filterByLocation() {
+    @GetMapping("/events/filter/{location}")
+    public ResponseEntity<?> filterByLocation(@PathVariable String location) {
 
         final List<AppEvent> events;
 
         try {
-            events = eventService.filterByLocation();
+            events = eventService.filterByLocation(location);
         } catch (IOException exception) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
         }
