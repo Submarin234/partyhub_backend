@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -35,5 +36,16 @@ public class LocationController {
         else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Location not found!");
         }
+    }
+
+    @GetMapping("/locations")
+    public ResponseEntity<?> findAll() {
+        final List<AppLocation> locations;
+        try {
+            locations = locationService.findAll();
+        } catch (IOException exception) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+        }
+        return ResponseEntity.ok().body(locations);
     }
 }

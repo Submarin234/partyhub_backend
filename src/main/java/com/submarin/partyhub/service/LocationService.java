@@ -23,7 +23,7 @@ public class LocationService {
                 .orElse(null);
     }
 
-    private List<AppLocation> findAll() throws IOException {
+    public List<AppLocation> findAll() throws IOException {
         log.info("start...: LOCATION SERVICE - find all");
         final URL url = new URL("http://localhost:8082/location/api/locations");
         final HttpURLConnection con = (HttpURLConnection) url.openConnection();
