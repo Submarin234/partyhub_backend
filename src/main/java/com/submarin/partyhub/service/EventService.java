@@ -9,7 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class EventService {
@@ -21,6 +23,33 @@ public class EventService {
                 .filter(appEvent -> appEvent.getId().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public List<AppEvent> sortByName() throws IOException {
+        final List<AppEvent> appEvents = findAll();
+
+        return appEvents
+                .stream()
+                .sorted(Comparator.comparing(AppEvent::getName))
+                .collect(Collectors.toList());
+    }
+
+    public List<AppEvent> sortByDate() throws IOException {
+        final List<AppEvent> appEvents = findAll();
+
+        return appEvents
+                .stream()
+                .sorted(Comparator.comparing(AppEvent::getDate))
+                .collect(Collectors.toList());
+    }
+
+    public List<AppEvent> filterByLocation(final String location) throws IOException {
+        final List<AppEvent> appEvents = findAll();
+
+        return appEvents
+                .stream()
+                .filter(f -> f.getLocation().contains(location) == true)
+                .collect(Collectors.toList());
     }
 
     public List<AppEvent> findAll() throws IOException {
